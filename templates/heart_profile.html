@@ -1,0 +1,129 @@
+<!-- templates/heart_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Profile</title>
+    <style>
+        /* Add styles here */
+        .login-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Add styles for editable fields */
+        .editable {
+            display: none;
+        }
+
+        .edit-mode .non-editable {
+            display: none;
+        }
+
+        .edit-mode .editable {
+            display: block;
+        }
+    </style>
+    <script>
+        // JavaScript for toggling between edit and non-edit modes
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButton = document.getElementById('editButton');
+            const nonEditableFields = document.querySelectorAll('.non-editable');
+            const editableFields = document.querySelectorAll('.editable');
+
+            editButton.addEventListener('click', function () {
+                document.body.classList.toggle('edit-mode');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Show login information at the right upper corner -->
+    <p class="login-info">
+        {% if customer %}
+            Logged in as {{ customer.accountid }}
+        {% else %}
+            Not logged in
+        {% endif %}
+    </p>
+
+    <h1>Heart Profile for {{ customer.custname }}</h1>
+
+    <div class="non-editable">
+        <p>Age: {{ customer_heart.age }}</p>
+        <p>Sex: {{ customer_heart.sex }}</p>
+        <p>Chest Pain Type: {{ customer_heart.cp }}</p>
+        <p>Resting Blood Pressure: {{ customer_heart.trestbps }}</p>
+        <p>Serum Cholesterol: {{ customer_heart.chol }}</p>
+        <p>Fasting Blood Sugar: {{ customer_heart.fbs }}</p>
+        <p>Resting ECG: {{ customer_heart.restecg }}</p>
+        <p>Maximum Heart Rate Achieved: {{ customer_heart.thalach }}</p>
+        <p>Exercise Induced Angina: {{ customer_heart.exang }}</p>
+        <p>Oldpeak: {{ customer_heart.oldpeak }}</p>
+        <p>Slope: {{ customer_heart.slope }}</p>
+        <p>Number of Major Vessels Colored: {{ customer_heart.ca }}</p>
+        <p>Thalassemia Type: {{ customer_heart.thal }}</p>
+    </div>
+
+    <div class="editable">
+        <form method="post" action="{{ url_for('heart_profile') }}">
+            <label for="updated_age">Age:</label>
+            <input type="text" name="updated_age" value="{{ customer_heart.age }}" required><br>
+
+            <label for="updated_sex">Sex:</label>
+            <input type="text" name="updated_sex" value="{{ customer_heart.sex }}" required><br>
+
+            <label for="updated_cp">Chest Pain Type:</label>
+            <input type="text" name="updated_cp" value="{{ customer_heart.cp }}" required><br>
+
+            <label for="updated_trestbps">Resting Blood Pressure:</label>
+            <input type="text" name="updated_trestbps" value="{{ customer_heart.trestbps }}" required><br>
+
+            <label for="updated_chol">Serum Cholesterol:</label>
+            <input type="text" name="updated_chol" value="{{ customer_heart.chol }}" required><br>
+
+            <label for="updated_fbs">Fasting Blood Sugar:</label>
+            <input type="text" name="updated_fbs" value="{{ customer_heart.fbs }}" required><br>
+
+            <label for="updated_restecg">Resting ECG:</label>
+            <input type="text" name="updated_restecg" value="{{ customer_heart.restecg }}" required><br>
+
+            <label for="updated_thalach">Maximum Heart Rate Achieved:</label>
+            <input type="text" name="updated_thalach" value="{{ customer_heart.thalach }}" required><br>
+
+            <label for="updated_exang">Exercise Induced Angina:</label>
+            <input type="text" name="updated_exang" value="{{ customer_heart.exang }}" required><br>
+
+            <label for="updated_oldpeak">Oldpeak:</label>
+            <input type="text" name="updated_oldpeak" value="{{ customer_heart.oldpeak }}" required><br>
+
+            <label for="updated_slope">Slope:</label>
+            <input type="text" name="updated_slope" value="{{ customer_heart.slope }}" required><br>
+
+            <label for="updated_ca">Number of Major Vessels Colored:</label>
+            <input type="text" name="updated_ca" value="{{ customer_heart.ca }}" required><br>
+
+            <label for="updated_thal">Thalassemia Type:</label>
+            <input type="text" name="updated_thal" value="{{ customer_heart.thal }}" required><br>
+
+            
+            <!-- Add more fields as needed -->
+
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+
+    <button id="editButton">Edit</button>
+
+    <p><a href="{{ url_for('profile') }}">Go Back to Profile</a></p>
+
+    <!-- Add GoHome button -->
+    <a href="{{ url_for('index') }}">Go Home</a>
+    
+</body>
+</html>

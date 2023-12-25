@@ -1,0 +1,50 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Heart Disease Prediction Result
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Inter', sans-serif;
+        }
+        .scale-up {
+            transform: scale(1.25);
+        }
+  </style>
+ </head>
+ <body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="bg-white p-10 rounded-lg shadow-lg max-w-md w-full scale-up">
+   <h1 class="text-4xl font-bold mb-8 text-center">
+    Heart Disease Prediction Result
+   </h1>
+   <div class="flex justify-center mb-8">
+    <div class="rounded-full bg-black p-3 w-28 h-28 flex items-center justify-center">
+     <img alt="Heart icon inside a circle" class="w-16 h-16" height="128" src="./static/image/love.png" width="128"/>
+    </div>
+   </div>
+   <div class="flex justify-between items-center mb-8">
+    <div class="text-xl">
+     <div class="font-bold uppercase">
+      Patient has
+     </div>
+     <div class="text-gray-500">
+      risk of heart disease
+     </div>
+    </div>
+    <div class="text-4xl font-bold">
+        <p>{{ prediction_text }}</p>
+    </div>
+   </div>
+   <a href="/predictDiabetes">
+    <button class="w-full bg-gray-300 text-black font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline">
+        NEXT DIABETES
+   </button>
+    </a>
+  </div>
+ </body>
+</html>

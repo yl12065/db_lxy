@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+.text-section {
+    flex-basis: 50%;
+    padding-right: 20px; /* To ensure there's space between text and image */
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.prediction-form {
+    /* Styles for your form elements */
+}
+
+.prediction-form button {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.image-section {
+    flex-basis: 50%;
+    text-align: right; /* Align the image to the right */
+}
+
+.image-section img {
+    max-width: 100%;
+    height: auto;
+}

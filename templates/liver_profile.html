@@ -1,0 +1,118 @@
+<!-- templates/liver_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Profile</title>
+    <style>
+        /* Add styles here */
+        .login-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Add styles for editable fields */
+        .editable {
+            display: none;
+        }
+
+        .edit-mode .non-editable {
+            display: none;
+        }
+
+        .edit-mode .editable {
+            display: block;
+        }
+    </style>
+    <script>
+        // JavaScript for toggling between edit and non-edit modes
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButton = document.getElementById('editButton');
+            const nonEditableFields = document.querySelectorAll('.non-editable');
+            const editableFields = document.querySelectorAll('.editable');
+
+            editButton.addEventListener('click', function () {
+                document.body.classList.toggle('edit-mode');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Show login information at the right upper corner -->
+    <p class="login-info">
+        {% if customer %}
+            Logged in as {{ customer.accountid }}
+        {% else %}
+            Not logged in
+        {% endif %}
+    </p>
+
+    <h1>Your Liver Profile</h1>
+    
+    <div class="non-editable">
+        <p>Age: {{ customer_liver.age }}</p>
+        <p>Gender: {{ customer_liver.gender }}</p>
+        <p>Total Bilirubin: {{ customer_liver.totalbilirubin }}</p>
+        <p>Direct Bilirubin: {{ customer_liver.directbilirubin }}</p>
+        <p>Alkaline Phosphotase: {{ customer_liver.alkalinephosphotase }}</p>
+        <p>Alamine Aminotransferase: {{ customer_liver.alamineamint }}</p>
+        <p>Aspartate Aminotransferase: {{ customer_liver.aspartateamint }}</p>
+        <p>Total Proteins: {{ customer_liver.totalproteins }}</p>
+        <p>Albumin: {{ customer_liver.albumin }}</p>
+        <p>A/G Ratio: {{ customer_liver.aandgratio }}</p>
+       
+    </div>
+
+    <div class="editable">
+        <form method="post" action="{{ url_for('liver_profile') }}">
+            <label for="updated_age">Age:</label>
+            <input type="text" name="updated_age" value="{{ customer_liver.age }}" required><br>
+
+            <label for="updated_gender">Gender:</label>
+            <input type="text" name="updated_gender" value="{{ customer_liver.gender }}" required><br>
+
+            <label for="updated_totalbilirubin">Total Bilirubin:</label>
+            <input type="text" name="updated_totalbilirubin" value="{{ customer_liver.totalbilirubin }}" required><br>
+
+            <label for="updated_directbilirubin">Direct Bilirubin:</label>
+            <input type="text" name="updated_directbilirubin" value="{{ customer_liver.directbilirubin }}" required><br>
+
+            <label for="updated_alkalinephosphotase">Alkaline Phosphotase:</label>
+            <input type="text" name="updated_alkalinephosphotase" value="{{ customer_liver.alkalinephosphotase }}" required><br>
+
+            <label for="updated_alamineamint">Alamine Aminotransferase:</label>
+            <input type="text" name="updated_alamineamint" value="{{ customer_liver.alamineamint }}" required><br>
+
+            <label for="updated_aspartateamint">Aspartate Aminotransferase:</label>
+            <input type="text" name="updated_aspartateamint" value="{{ customer_liver.aspartateamint }}" required><br>
+
+            <label for="updated_totalproteins">Total Proteins:</label>
+            <input type="text" name="updated_totalproteins" value="{{ customer_liver.totalproteins }}" required><br>
+
+            <label for="updated_albumin">Albumin:</label>
+            <input type="text" name="updated_albumin" value="{{ customer_liver.albumin }}" required><br>
+
+            <label for="updated_aandgratio">A/G Ratio:</label>
+            <input type="text" name="updated_aandgratio" value="{{ customer_liver.aandgratio }}" required><br>
+
+
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+
+    <button id="editButton">Edit</button>
+
+    <!-- ... (remaining HTML) -->
+
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+    <!-- Add Go Home button -->
+    <a href="{{ url_for('index') }}">Go Home</a>
+    
+</body>
+</html>

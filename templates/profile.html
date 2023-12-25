@@ -1,0 +1,92 @@
+<!-- templates/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        /* Add styles here */
+        .login-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Add styles for editable fields */
+        .editable {
+            display: none;
+        }
+
+        .edit-mode .non-editable {
+            display: none;
+        }
+
+        .edit-mode .editable {
+            display: block;
+        }
+    </style>
+    <script>
+        // JavaScript for toggling between edit and non-edit modes
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButton = document.getElementById('editButton');
+            const nonEditableFields = document.querySelectorAll('.non-editable');
+            const editableFields = document.querySelectorAll('.editable');
+
+            editButton.addEventListener('click', function () {
+                document.body.classList.toggle('edit-mode');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Show login information at the right upper corner -->
+    <p class="login-info">
+        {% if customer %}
+            Logged in as {{ customer.accountid }}
+        {% else %}
+            Not logged in
+        {% endif %}
+    </p>
+
+    <h1>Welcome, {{ customer.custname }}!</h1>
+    
+    <div class="non-editable">
+        <p>Account ID: {{ customer.accountid }}</p>
+        <p>Email: {{ customer.email }}</p>
+        <p>Address: {{ customer.address }}</p>
+    </div>
+
+    <div class="editable">
+        <form method="post" action="{{ url_for('edit_customer') }}">
+            <label for="updated_name">Name:</label>
+            <input type="text" name="updated_name" value="{{ customer.custname }}" required><br>
+
+            <label for="updated_email">Email:</label>
+            <input type="email" name="updated_email" value="{{ customer.email }}" required><br>
+
+            <label for="updated_address">Address:</label>
+            <textarea name="updated_address">{{ customer.address }}</textarea><br>
+
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+
+    <button id="editButton">Edit</button>
+
+    <!-- ... (remaining HTML) -->
+    <a href="{{ url_for('heart_profile') }}"><button>Check Heart Profile</button></a>
+    <a href="{{ url_for('diabetes_profile') }}"><button>Check Diabetes Profile</button></a>
+    <a href="{{ url_for('liver_profile') }}"><button>Check Liver Profile</button></a>
+
+
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+    <!-- Add GoHome button -->
+    <a href="{{ url_for('index') }}">Go Home</a>
+    
+</body>
+</html>

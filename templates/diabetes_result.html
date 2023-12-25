@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction Result</title>
+    <!-- Add your own styling or link to a CSS file if needed -->
+    <style>
+        /* Your styling goes here */
+    </style>
+</head>
+<body>
+    <h2>Diabetes Prediction Result</h2>
+    <p>{{ prediction_text }}</p>
+
+    <!-- Next Button to navigate to final_report -->
+    <a href="/predictLiverDisease"><button>Next</button></a>
+</body>
+</html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction Result</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+    <div class="flex flex-col items-center justify-center min-h-screen p-4">
+        <h1 class="text-5xl font-bold mb-8">Diabetes Prediction Result</h1>
+        
+        <div class="flex items-center justify-center w-full max-w-4xl mb-8">
+            <div class="flex flex-col items-center">
+                <h2 class="text-3xl font-bold mb-2">Diabetes</h2>
+                <div class="flex items-center justify-center w-32 h-32 border-2 border-black rounded-full mb-2">
+                    <span class="text-6xl font-bold">
+                        <p>{{ prediction_text }}</p>
+                    </span>
+                </div>
+                <div class="text-xs mt-2">patient has <span class="mx-2">%</span> risk of diabetes disease</div>
+            </div>
+        </div>
+        
+        <div class="flex items-center justify-center w-full max-w-4xl mb-8">
+            <div class="flex flex-col items-center bg-gray-200 p-4 rounded-lg w-1/2">
+                <h3 class="text-xl font-bold mb-4">Prediction</h3>
+                <div class="w-full mb-2">
+                    <div class="h-2 bg-black rounded-full mb-1"></div>
+                    <div class="h-2 bg-black rounded-full mb-1"></div>
+                    <div class="h-2 bg-black rounded-full"></div>
+                </div>
+                <div class="text-xs mt-2"> <span class="mx-2">
+                    <p>{{ nonpred }} % risk of not having diabetes disease</p>
+                </span></div>
+            </div>
+        </div>
+        
+        <div class="flex items-center justify-center w-full max-w-xs mb-8">
+            <button class="bg-gray-200 text-black font-bold py-2 px-4 rounded-full mr-2">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <a href="/predictLiverDisease">
+                <button class="bg-gray-200 text-black font-bold py-2 px-4 rounded-full ml-2">
+                Next LIVER
+            </button>
+            </a>
+            <button class="bg-gray-200 text-black font-bold py-2 px-4 rounded-full ml-2">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+

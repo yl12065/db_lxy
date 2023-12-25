@@ -1,0 +1,109 @@
+<!-- templates/diabetes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Profile</title>
+    <style>
+        /* Add styles here */
+        .login-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Add styles for editable fields */
+        .editable {
+            display: none;
+        }
+
+        .edit-mode .non-editable {
+            display: none;
+        }
+
+        .edit-mode .editable {
+            display: block;
+        }
+    </style>
+    <script>
+        // JavaScript for toggling between edit and non-edit modes
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButton = document.getElementById('editButton');
+            const nonEditableFields = document.querySelectorAll('.non-editable');
+            const editableFields = document.querySelectorAll('.editable');
+
+            editButton.addEventListener('click', function () {
+                document.body.classList.toggle('edit-mode');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Show login information at the right upper corner -->
+    <p class="login-info">
+        {% if customer %}
+            Logged in as {{ customer.accountid }}
+        {% else %}
+            Not logged in
+        {% endif %}
+    </p>
+
+    <h1>Your Diabetes Profile</h1>
+    
+    <div class="non-editable">
+        <p>Pregnancies: {{ customer_diabetes.pregnancies }}</p>
+        <p>Glucose: {{ customer_diabetes.glucose }}</p>
+        <p>Blood Pressure: {{ customer_diabetes.bloodpressure }}</p>
+        <p>Skin Thickness: {{ customer_diabetes.skinthickness }}</p>
+        <p>Insulin: {{ customer_diabetes.insulin }}</p>
+        <p>BMI: {{ customer_diabetes.bmi }}</p>
+        <p>Diabetes Pedigree Function: {{ customer_diabetes.diabetespedigreefunction }}</p>
+        <p>Age: {{ customer_diabetes.age }}</p>
+    </div>
+
+    <div class="editable">
+        <form method="post" action="{{ url_for('diabetes_profile') }}">
+            <label for="updated_pregnancies">Pregnancies:</label>
+            <input type="text" name="updated_pregnancies" value="{{ customer_diabetes.pregnancies }}" required><br>
+
+            <label for="updated_glucose">Glucose:</label>
+            <input type="text" name="updated_glucose" value="{{ customer_diabetes.glucose }}" required><br>
+
+            <label for="updated_bloodpressure">Blood Pressure:</label>
+            <input type="text" name="updated_bloodpressure" value="{{ customer_diabetes.bloodpressure }}" required><br>
+
+            <label for="updated_skinthickness">Skin Thickness:</label>
+            <input type="text" name="updated_skinthickness" value="{{ customer_diabetes.skinthickness }}" required><br>
+
+            <label for="updated_insulin">Insulin:</label>
+            <input type="text" name="updated_insulin" value="{{ customer_diabetes.insulin }}" required><br>
+
+            <label for="updated_bmi">BMI:</label>
+            <input type="text" name="updated_bmi" value="{{ customer_diabetes.bmi }}" required><br>
+
+            <label for="updated_diabetespedigreefunction">Diabetes Pedigree Function:</label>
+            <input type="text" name="updated_diabetespedigreefunction" value="{{ customer_diabetes.diabetespedigreefunction }}" required><br>
+
+            <label for="updated_age">Age:</label>
+            <input type="text" name="updated_age" value="{{ customer_diabetes.age }}" required><br>
+
+
+            <input type="submit" value="Save Changes">
+        </form>
+    </div>
+
+    <button id="editButton">Edit</button>
+
+    <!-- ... (remaining HTML) -->
+
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+    <!-- Add Go Home button -->
+    <a href="{{ url_for('index') }}">Go Home</a>
+    
+</body>
+</html>

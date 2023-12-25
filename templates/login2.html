@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-md mx-auto">
+            <h1 class="text-5xl font-bold mb-6 text-center">Login</h1>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <form>
+                    <div class="mb-4">
+                        <label for="accountID" class="block text-lg font-semibold mb-2">AccountID:</label>
+                        <input type="text" id="accountID" class="w-full p-4 border-2 border-gray-300 rounded-lg" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-lg font-semibold mb-2">Password:</label>
+                        <input type="password" id="password" class="w-full p-4 border-2 border-gray-300 rounded-lg" required>
+                    </div>
+                    <div class="mb-6">
+                        <button type="submit" class="w-full bg-gray-500 text-white p-4 rounded-lg font-semibold text-lg">Login</button>
+                    </div>
+                    <div class="text-center mb-6">
+                        <p class="text-lg">Don't have an account?</p>
+                        <a href="#" class="text-gray-500 font-semibold">Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
