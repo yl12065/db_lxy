@@ -243,7 +243,7 @@ def edit_customer():
 
     return render_template('profile.html', customer=customer)
 
-# Add this route to your app.py file
+
 @app.route('/heart_profile', methods=['GET', 'POST'])
 def heart_profile():
     customer = get_logged_in_customer()
@@ -400,10 +400,10 @@ def predictheart():
 
         df = pd.DataFrame(input_features, columns=features_name)
 
-        # Assuming 'heartmodel' is a trained model loaded before this point
+        # 'heartmodel' is a trained model loaded before this point
         output = heartmodel.predict_proba(df)
         
-        # Assuming 'heartmodel' returns a tuple with the prediction at index 1
+        # 'heartmodel' returns a tuple with the prediction at index 1
         prob[0] = output[0][0]
 
         """--------------------- database -----------------------"""
@@ -448,11 +448,11 @@ def predict_diabetes():
 
         df = pd.DataFrame([input_features], columns=features_name)
 
-        # Assuming 'diabetesmodel' is a trained model loaded before this point
+        # 'diabetesmodel' is a trained model loaded before this point
         
         output = diabetesmodel.predict_proba(df)
         
-        # Assuming 'diabetesmodel' returns a tuple with the prediction at index 1
+        # 'diabetesmodel' returns a tuple with the prediction at index 1
         prob[1] = output[0][1]
 
 
@@ -499,10 +499,10 @@ def predict_liver_disease():
 
         df = pd.DataFrame(input_features, columns=features_name)
 
-        # Assuming 'livermodel' returns a binary prediction (0 or 1)
+        # 'livermodel' returns a binary prediction (0 or 1)
         output = livermodel.predict_proba(df)
         
-        # Assuming 'diabetesmodel' returns a tuple with the prediction at index 1
+        # diabetesmodel' returns a tuple with the prediction at index 1
         prob[2] = output[0][1]
 
         """--------------------- database -----------------------"""
@@ -532,7 +532,7 @@ def predict_liver_disease():
 
 @app.route('/final_report', methods=['GET'])
 def final_report():
-    # Assuming 'heart_prob', 'diabetes_prob', and 'liver_prob' are the probabilities from the models
+    # 'heart_prob', 'diabetes_prob', and 'liver_prob' are the probabilities from the models
 
     # Calculate the total insurance amount
     total_insurance_amount = sum(prob)* 100
@@ -573,152 +573,7 @@ def final_report():
     #return render_template('final_report.html', total_insurance_amount=total_insurance_amount)
 
 
-"""------------------------------  profile 
 
-@app.route('/heart_form', methods=['GET', 'POST'])
-def heart_form():
-    customer = get_logged_in_customer()
-
-    if not customer:
-        flash('Please log in to fill the form.', 'error')
-        return redirect(url_for('login'))
-    
-    if request.method == 'POST':
-         # Extracting input features from the form
-        input_features = [float(x) for x in request.form.values()]
-
-        features_name = ["age", "sex", "cp", "trestbps", "chol", "fbs",
-                         "restecg", "thalach", "exang", "oldpeak", "slope", "ca",
-                         "thal"]
-
-        df = pd.DataFrame([input_features], columns=features_name)
-
-        # Assuming 'heartmodel' is a trained model loaded before this point
-        output = heartmodel.predict_proba(df)
-        
-        # Assuming 'heartmodel' returns a tuple with the prediction at index 1
-        heart_risk = output[0][1]
-
-        # Create a new Heart record and store it in the Heart table
-        heart_data = Heart(
-            accountid=customer.accountid,
-            age=request.form.get('age'),
-            sex=request.form.get('sex'),
-            cp=request.form.get('cp'),
-            trestbps=request.form.get('trestbps'),
-            chol=request.form.get('chol'),
-            fbs=request.form.get('fbs'),
-            restecg=request.form.get('restecg'),
-            thalach=request.form.get('thalach'),
-            exang=request.form.get('exang'),
-            oldpeak=request.form.get('oldpeak'),
-            slope=request.form.get('slope'),
-            ca=request.form.get('ca'),
-            thal=request.form.get('thal'),
-            heartrisk=heart_risk
-        )
-
-        db.session.add(heart_data)
-        db.session.commit()
-
-        flash('Heart form submitted successfully', 'success')
-        return redirect(url_for('heart_result'))
-
-    return render_template('heart_form.html', customer=customer)
-
-@app.route('/diabetes_form', methods=['GET', 'POST'])
-def diabetes_form():
-    customer = get_logged_in_customer()
-
-    if not customer:
-        flash('Please log in to fill the form.', 'error')
-        return redirect(url_for('login'))
-
-    if request.method == 'POST':
-        # Extracting input features from the form
-        input_features = [float(x) for x in request.form.values()]
-
-        features_name = ["Pregnancies", "Glucose", "BloodPressure", "SkinThickness", "Insulin", "BMI",
-                         "DiabetesPedigreeFunction", "Age"]
-
-        df = pd.DataFrame([input_features], columns=features_name)
-
-        # Assuming 'diabetesmodel' is a trained model loaded before this point
-        output = diabetesmodel.predict_proba(df)
-        
-        # Assuming 'diabetesmodel' returns a tuple with the prediction at index 1
-        diabetes_risk = output[0][1]
-
-        # Create a new Diabetes record and store it in the Diabetes table
-        diabetes_data = Diabetes(
-            accountid=customer.accountid,
-            pregnancies=request.form.get('pregnancies'),
-            glucose=request.form.get('glucose'),
-            bloodpressure=request.form.get('bloodpressure'),
-            skinthickness=request.form.get('skinthickness'),
-            insulin=request.form.get('insulin'),
-            bmi=request.form.get('bmi'),
-            diabetespedigreefunction=request.form.get('diabetespedigreefunction'),
-            age=request.form.get('age'),
-            diabetesrisk=diabetes_risk
-        )
-
-        db.session.add(diabetes_data)
-        db.session.commit()
-
-        flash('Diabetes form submitted successfully', 'success')
-        return redirect(url_for('diabetes_result'))
-
-    return render_template('diabetes_form.html', customer=customer)
-
-@app.route('/liverdisease_form', methods=['GET', 'POST'])
-def liverdisease_form():
-    customer = get_logged_in_customer()
-
-    if not customer:
-        flash('Please log in to fill the form.', 'error')
-        return redirect(url_for('login'))
-
-    if request.method == 'POST':
-        # Extracting input features from the form
-        input_features = [float(x) for x in request.form.values()]
-
-        features_name = ["Age", "Gender", "Total_Bilirubin", "Direct_Bilirubin", "Alkaline_Phosphotase",
-                         "Alamine_Aminotransferase", "Aspartate_Aminotransferase", "Total_Protiens",
-                         "Albumin", "Albumin_and_Globulin_Ratio"]
-        
-        df = pd.DataFrame([input_features], columns=features_name)
-
-        # Assuming 'livermodel' is a trained model loaded before this point
-        output = livermodel.predict_proba(df)
-        
-        # Assuming 'livermodel' returns a tuple with the prediction at index 1
-        liver_risk = output[0][1]
-
-        # Create a new Liver record and store it in the Liver table
-        liver_data = Liver(
-            accountid=customer.accountid,
-            age=request.form.get('age'),
-            gender=request.form.get('gender'),
-            totalbilirubin=request.form.get('totalbilirubin'),
-            directbilirubin=request.form.get('directbilirubin'),
-            alkalinephosphotase=request.form.get('alkalinephosphotase'),
-            alamineamint=request.form.get('alamineamint'),
-            aspartateamint=request.form.get('aspartateamint'),
-            totalproteins=request.form.get('totalproteins'),
-            albumin=request.form.get('albumin'),
-            aandgratio=request.form.get('aandgratio'),
-            liverrisk=liver_risk
-        )
-
-        db.session.add(liver_data)
-        db.session.commit()
-
-        flash('Liver disease form submitted successfully', 'success')
-        return redirect(url_for('liverdisease_result'))
-
-    return render_template('liverdisease_form.html', customer=customer)
------------------------------"""
 
 if __name__ == '__main__':
     db.create_all()
